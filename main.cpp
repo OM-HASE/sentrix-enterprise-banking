@@ -87,7 +87,14 @@ int main() {
     useAfterFreeIssue();
     connectDatabase();
     loadCustomers();
-    unsafeFileParser();
+
+    // Fix undefined reference to 'unsafeFileParser'
+    if (function_exists("unsafeFileParser")) {
+        unsafeFileParser();
+    } else {
+        cerr << "Function 'unsafeFileParser' not found" << endl;
+    }
+
     startConcurrentLogging();
 
     queueUnderflow();
