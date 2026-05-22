@@ -38,7 +38,8 @@ void safeFileParser() {
     size_t length = strlen(input);
 
     if (length < sizeof(buffer)) {
-        strcpy(buffer, input);
+        strncpy(buffer, input, sizeof(buffer) - 1);
+        buffer[sizeof(buffer) - 1] = '\0';
     } else {
         cerr << "Error: Buffer overflow" << endl;
         return;
