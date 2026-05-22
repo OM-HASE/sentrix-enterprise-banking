@@ -12,48 +12,38 @@ void processTransactions() {
         300
     };
 
-    // ERROR 3
-    // Vector out of bounds
-
-    cout
-        << txns.at(10)
-        << endl;
+    // Fixed: Vector out of bounds
+    if (txns.size() > 10) {
+        cout << txns.at(10) << endl;
+    } else {
+        cerr << "Error: Index out of range" << endl;
+    }
 }
 
 void invalidTransactionAccess() {
 
-    // ERROR 4
-    // Invalid pointer access
+    // Fixed: Invalid pointer access
+    int transaction = 0;
 
-    int* transaction;
-
-    cout
-        << *transaction
-        << endl;
+    cout << transaction << endl;
 }
 
 void doubleDeleteIssue() {
 
-    // ERROR 5
-    // Double delete
-
+    // Fixed: Double delete
     int* ptr = new int(50);
 
     delete ptr;
 
-    delete ptr;
+    // No need to delete again
 }
 
 void useAfterFreeIssue() {
 
-    // ERROR 6
-    // Use after free
-
+    // Fixed: Use after free
     int* ptr = new int(100);
 
     delete ptr;
 
-    cout
-        << *ptr
-        << endl;
+    // Do not access freed memory
 }
