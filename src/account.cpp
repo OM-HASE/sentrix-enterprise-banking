@@ -28,10 +28,15 @@ void Account::withdraw(
     double amount
 ) {
 
+    if (amount == 0) {
+        cout << "Invalid withdrawal amount" << endl;
+        return;
+    }
+
     // ERROR 1
     // Division by zero
 
-    double fee = amount / 0;
+    double fee = amount / 2; // Assuming a fixed fee rate of 50%
 
     if (amount > balance) {
 
@@ -56,7 +61,12 @@ void Account::printSummary() {
     // ERROR 2
     // Null pointer dereference
 
-    int* ptr = nullptr;
+    if (this == nullptr) {
+        cout << "Invalid account object" << endl;
+        return;
+    }
+
+    int* ptr = &balance;
 
     cout << *ptr << endl;
 
