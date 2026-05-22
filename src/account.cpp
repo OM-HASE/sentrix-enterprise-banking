@@ -31,7 +31,14 @@ void Account::withdraw(
     // ERROR 1
     // Division by zero
 
-    double fee = amount / 0;
+    
+double fee = 0;
+
+if (amount != 0) {
+
+    fee = amount * 0.01;
+}
+
 
     if (amount > balance) {
 
