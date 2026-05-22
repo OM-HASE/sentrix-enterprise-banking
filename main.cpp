@@ -18,6 +18,7 @@ void recursiveCrash(
     // ERROR 11
     // Infinite recursion
 
+    if (n > 1000) return; // Prevent infinite recursion
     recursiveCrash(n + 1);
 }
 
@@ -28,9 +29,11 @@ void queueUnderflow() {
 
     queue<int> q;
 
-    cout
-        << q.front()
-        << endl;
+    if (!q.empty()) {
+        cout << q.front() << endl;
+    } else {
+        cerr << "Queue is empty" << endl; // Handle queue underflow safely
+    }
 }
 
 void stackUnderflow() {
@@ -40,9 +43,11 @@ void stackUnderflow() {
 
     stack<int> st;
 
-    cout
-        << st.top()
-        << endl;
+    if (!st.empty()) {
+        cout << st.top() << endl;
+    } else {
+        cerr << "Stack is empty" << endl; // Handle stack underflow safely
+    }
 }
 
 void invalidMapAccess() {
@@ -50,11 +55,13 @@ void invalidMapAccess() {
     // ERROR 14
     // Invalid map dereference
 
-    map<int, string>* users = nullptr;
+    map<int, string> users;
 
-    cout
-        << (*users)[1]
-        << endl;
+    if (users.find(1) != users.end()) {
+        cout << users[1] << endl;
+    } else {
+        cerr << "User not found" << endl; // Handle invalid map access safely
+    }
 }
 
 void invalidThreadUsage() {
@@ -62,29 +69,24 @@ void invalidThreadUsage() {
     // ERROR 15
     // Invalid thread access
 
-    thread* t = nullptr;
+    thread t([]() {
+        // Thread logic here
+    });
 
-    t->join();
+    t.join();
 }
 
 int main() {
 
-    cout
-        << "Starting SentriX Enterprise Banking"
-        << endl;
+    cout << "Starting SentriX Enterprise Banking" << endl;
 
-    Account account(
-        "Alice",
-        1000
-    );
+    Account account("Alice", 1000);
 
     account.deposit(500);
 
     account.withdraw(200);
 
-    cout
-        << account.getBalance()
-        << endl;
+    cout << account.getBalance() << endl;
 
     processTransactions();
 
@@ -114,9 +116,7 @@ int main() {
 
     account.printSummary();
 
-    cout
-        << "System Finished"
-        << endl;
+    cout << "System Finished" << endl;
 
     return 0;
 }
