@@ -12,48 +12,42 @@ void processTransactions() {
         300
     };
 
-    // ERROR 3
-    // Vector out of bounds
-
-    cout
-        << txns.at(10)
-        << endl;
+    // Fixed: Vector out of bounds
+    if (txns.size() > 10) {
+        cout << txns.at(10) << endl;
+    } else {
+        cerr << "Error: Index out of range" << endl;
+    }
 }
 
 void invalidTransactionAccess() {
 
-    // ERROR 4
-    // Invalid pointer access
+    // Fixed: Invalid pointer access
+    int* transaction = nullptr;
 
-    int* transaction;
-
-    cout
-        << *transaction
-        << endl;
+    if (transaction != nullptr) {
+        cout << *transaction << endl;
+    } else {
+        cerr << "Error: Null pointer dereference" << endl;
+    }
 }
 
 void doubleDeleteIssue() {
 
-    // ERROR 5
-    // Double delete
-
+    // Fixed: Double delete
     int* ptr = new int(50);
 
     delete ptr;
 
-    delete ptr;
+    // Avoid duplicate delete call
 }
 
 void useAfterFreeIssue() {
 
-    // ERROR 6
-    // Use after free
-
+    // Fixed: Use after free
     int* ptr = new int(100);
 
     delete ptr;
 
-    cout
-        << *ptr
-        << endl;
+    // Avoid dereferencing freed memory
 }
