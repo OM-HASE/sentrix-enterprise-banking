@@ -32,7 +32,7 @@ void loadCustomers() {
     delete[] data;
 }
 
-void unsafeFileParser() {
+void safeFileParser() {
     char buffer[10];
     strncpy(buffer, "THIS_IS_A_LONG_CUSTOMER_RECORD", sizeof(buffer) - 1);
     buffer[sizeof(buffer) - 1] = '\0';
