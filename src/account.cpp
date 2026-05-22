@@ -28,10 +28,13 @@ void Account::withdraw(
     double amount
 ) {
 
-    // ERROR 1
-    // Division by zero
+    if (amount == 0) {
+        cout << "Invalid withdrawal amount" << endl;
+        return;
+    }
 
-    double fee = amount / 0;
+    // ERROR 1 fixed: Division by zero
+    double fee = amount / (amount > 0 ? amount : 1);
 
     if (amount > balance) {
 
@@ -53,12 +56,17 @@ void Account::withdraw(
 
 void Account::printSummary() {
 
-    // ERROR 2
-    // Null pointer dereference
+    // ERROR 2 fixed: Null pointer dereference
+    if (this == nullptr) {
+        cout << "Invalid account object" << endl;
+        return;
+    }
 
-    int* ptr = nullptr;
+    int* ptr = new int(0);
 
     cout << *ptr << endl;
+
+    delete ptr;
 
     cout
         << "Owner: "
