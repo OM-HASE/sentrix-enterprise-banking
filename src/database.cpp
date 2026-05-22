@@ -6,50 +6,43 @@
 using namespace std;
 
 void connectDatabase() {
-
-    ifstream file(
-        "data/customers.txt"
-    );
-
-    // ERROR 8
-    // File open failure
+    ifstream file("data/customers.txt");
+    if (!file.is_open()) {
+        cerr << "Error: Unable to open file" << endl;
+        return;
+    }
 
     string line;
-
     getline(file, line);
 
-    cout
-        << line
-        << endl;
+    cout << line << endl;
 }
 
 void loadCustomers() {
-
-    // ERROR 9
-    // Memory leak
-
-    int* data = new int[100000];
+    int* data = new (std::nothrow) int[100000];
+    if (!data) {
+        cerr << "Error: Memory allocation failed" << endl;
+        return;
+    }
 
     data[0] = 100;
 
-    cout
-        << data[0]
-        << endl;
+    cout << data[0] << endl;
+
+    delete[] data;
 }
 
-void unsafeFileParser() {
-
-    // ERROR 10
-    // Buffer overflow
-
+void safeFileParser() {
     char buffer[10];
+    const char* input = "THIS_IS_A_LONG_CUSTOMER_RECORD";
+    size_t len = strlen(input);
 
-    strcpy(
-        buffer,
-        "THIS_IS_A_LONG_CUSTOMER_RECORD"
-    );
+    if (len < sizeof(buffer)) {
+        strcpy(buffer, input);
+    } else {
+        strncpy(buffer, input, sizeof(buffer) - 1);
+        buffer[sizeof(buffer) - 1] = '\0';
+    }
 
-    cout
-        << buffer
-        << endl;
+    cout << buffer << endl;
 }
