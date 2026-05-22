@@ -12,13 +12,18 @@
 using namespace std;
 
 void recursiveCrash(
-    int n
+    int n,
+    int maxDepth = 100
 ) {
+
+    if (n >= maxDepth) {
+        return;
+    }
 
     // ERROR 11
     // Infinite recursion
 
-    recursiveCrash(n + 1);
+    recursiveCrash(n + 1, maxDepth);
 }
 
 void queueUnderflow() {
@@ -28,9 +33,11 @@ void queueUnderflow() {
 
     queue<int> q;
 
-    cout
-        << q.front()
-        << endl;
+    if (!q.empty()) {
+        cout << q.front() << endl;
+    } else {
+        cerr << "Queue is empty" << endl;
+    }
 }
 
 void stackUnderflow() {
@@ -40,9 +47,11 @@ void stackUnderflow() {
 
     stack<int> st;
 
-    cout
-        << st.top()
-        << endl;
+    if (!st.empty()) {
+        cout << st.top() << endl;
+    } else {
+        cerr << "Stack is empty" << endl;
+    }
 }
 
 void invalidMapAccess() {
@@ -50,11 +59,13 @@ void invalidMapAccess() {
     // ERROR 14
     // Invalid map dereference
 
-    map<int, string>* users = nullptr;
+    map<int, string> users = {{1, "Alice"}, {2, "Bob"}};
 
-    cout
-        << (*users)[1]
-        << endl;
+    if (users.find(1) != users.end()) {
+        cout << users[1] << endl;
+    } else {
+        cerr << "User not found" << endl;
+    }
 }
 
 void invalidThreadUsage() {
@@ -62,16 +73,16 @@ void invalidThreadUsage() {
     // ERROR 15
     // Invalid thread access
 
-    thread* t = nullptr;
+    thread t([]() {
+        cout << "Thread running" << endl;
+    });
 
-    t->join();
+    t.join();
 }
 
 int main() {
 
-    cout
-        << "Starting SentriX Enterprise Banking"
-        << endl;
+    cout << "Starting SentriX Enterprise Banking" << endl;
 
     Account account(
         "Alice",
@@ -82,9 +93,7 @@ int main() {
 
     account.withdraw(200);
 
-    cout
-        << account.getBalance()
-        << endl;
+    cout << account.getBalance() << endl;
 
     processTransactions();
 
@@ -114,9 +123,7 @@ int main() {
 
     account.printSummary();
 
-    cout
-        << "System Finished"
-        << endl;
+    cout << "System Finished" << endl;
 
     return 0;
 }
