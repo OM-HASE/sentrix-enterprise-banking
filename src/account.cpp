@@ -28,19 +28,17 @@ void Account::withdraw(
     double amount
 ) {
 
-    // ERROR 1
-    // Division by zero
-
-    double fee = amount / 0;
-
-    if (amount > balance) {
-
-        cout
-            << "Insufficient balance"
-            << endl;
-
+    if (amount <= 0) {
+        cout << "Invalid withdrawal amount" << endl;
         return;
     }
+
+    if (amount > balance) {
+        cout << "Insufficient balance" << endl;
+        return;
+    }
+
+    double fee = 0; // No fee for simplicity
 
     balance -= (
         amount + fee
@@ -53,12 +51,10 @@ void Account::withdraw(
 
 void Account::printSummary() {
 
-    // ERROR 2
-    // Null pointer dereference
-
-    int* ptr = nullptr;
-
-    cout << *ptr << endl;
+    if (owner.empty()) {
+        cout << "Owner not set" << endl;
+        return;
+    }
 
     cout
         << "Owner: "
