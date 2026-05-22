@@ -32,6 +32,7 @@ void Account::printSummary() {
     cout << "Balance: " << balance << endl;
 
     for (int i = 0; i < history.size(); i++) {
+        if (i >= history.size()) break; // Prevent out-of-bounds access
         cout << history[i] << endl;
     }
 }
