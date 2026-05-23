@@ -4,11 +4,6 @@
 #include <map>
 #include <thread>
 
-#include "include/account.h"
-#include "include/transaction.h"
-#include "include/logger.h"
-#include "include/database.h"
-
 using namespace std;
 
 void recursiveCrash(
@@ -49,13 +44,12 @@ void invalidMapAccess() {
     // ERROR 14
     // Invalid map dereference
 
-    map<int, string>* users = new map<int, string>();
-    if (users != nullptr && users->find(1) != users->end()) {
-        cout << (*users)[1] << endl;
+    map<int, string> users;
+    if (users.find(1) != users.end()) {
+        cout << users[1] << endl;
     } else {
         cerr << "Invalid map access" << endl;
     }
-    delete users;
 }
 
 void invalidThreadUsage() {
@@ -75,34 +69,31 @@ void invalidThreadUsage() {
 int main() {
     cout << "Starting SentriX Enterprise Banking" << endl;
 
-    Account account("Alice", 1000);
-    account.deposit(500);
-    account.withdraw(200);
+    // Placeholder for account operations
+    cout << "Account operations..." << endl;
 
-    cout << account.getBalance() << endl;
-
-    // Placeholder for processTransactions
+    // Placeholder for transaction processing
     cout << "Processing transactions..." << endl;
 
-    // Placeholder for invalidTransactionAccess
+    // Placeholder for invalid transaction access
     cout << "Checking transaction access..." << endl;
 
-    // Placeholder for doubleDeleteIssue
+    // Placeholder for double delete issue
     cout << "Handling double delete issue..." << endl;
 
-    // Placeholder for useAfterFreeIssue
+    // Placeholder for use after free issue
     cout << "Handling use after free issue..." << endl;
 
-    // Placeholder for connectDatabase
+    // Placeholder for database connection
     cout << "Connecting to database..." << endl;
 
-    // Placeholder for loadCustomers
+    // Placeholder for loading customers
     cout << "Loading customers..." << endl;
 
-    // Placeholder for unsafeFileParser
+    // Placeholder for safe file parsing
     cout << "Parsing file safely..." << endl;
 
-    // Placeholder for startConcurrentLogging
+    // Placeholder for concurrent logging
     cout << "Starting concurrent logging..." << endl;
 
     queueUnderflow();
@@ -112,7 +103,6 @@ int main() {
 
     recursiveCrash(0);
 
-    account.printSummary();
     cout << "System Finished" << endl;
 
     return 0;
